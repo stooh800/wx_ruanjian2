@@ -1,4 +1,4 @@
-package org.fuck.wexin.processors.impl;
+package org.fuck.weixin.processors.impl;
 
 import java.util.Date;
 
