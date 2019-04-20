@@ -1,10 +1,9 @@
-package org.fuck;
 
+package org.fuck.wexin;
 import org.fuck.wexin.CommonsConfig;
 import org.fuck.wexin.domain.InMessage;
 import org.fuck.wexin.domain.event.EventInMessage;
 import org.fuck.wexin.processors.EventMessageProcessor;
-import org.fuck.wexin.service.JsonRedisSerializer;
 import org.slf4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
@@ -31,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 @SpringBootApplication
 @ComponentScan("org.fuck")
-public class SubscribeApplication implements //
+public class UnsubscribeApplication implements //
 		// 命令行运行器，表示此程序是一个命令行程序，需要重新run方法来实现程序的初始化。
 		// 使用一个线程等待程序的停止通知。
 		CommandLineRunner, //
@@ -41,7 +40,7 @@ public class SubscribeApplication implements //
 		ApplicationContextAware, //
 		CommonsConfig {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SubscribeApplication.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UnsubscribeApplication.class);
 
 	private ApplicationContext ctx;
 
@@ -101,6 +100,6 @@ public class SubscribeApplication implements //
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		SpringApplication.run(SubscribeApplication.class, args);
+		SpringApplication.run(UnsubscribeApplication.class, args);
 	}
 }

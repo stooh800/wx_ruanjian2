@@ -8,6 +8,7 @@
   	<module>kemaorj2</module>
   	<module>commons</module>
   	<module>subscribe</module>
+  	<module>unsubscribe</module>
   </modules>
   <!-- 项目的属性配置 -->
 	<properties>
