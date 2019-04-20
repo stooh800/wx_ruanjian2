@@ -96,7 +96,7 @@
 				<fork>true</fork>
 				<!-- 注意：这种启动和停止，都需要借助一个JMX端口，每个模块的JMX端口号必须不同-->
 				<!-- 默认端口号是9001，建议每100个端口作为一段端口号分配给一个人使用 -->
-				<jmxPort>12111</jmxPort>
+				<jmxPort>13112</jmxPort>
 				</configuration>
 			</plugin>
 		</plugins>
