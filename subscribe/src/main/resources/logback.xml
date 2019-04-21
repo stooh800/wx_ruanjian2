@@ -17,7 +17,7 @@
 	<logger name="org.hibernate.type.descriptor.sql.BasicBinder"
 		level="trace" />
 
-	branch 'master' of https://github.com/stooh800/weixin_kemao_2.git
+	branch 'master' of https://github.com/stooh800/wx_ruanjian2.git
 	<logger name="org.fuck" level="trace" />
 
 	<root level="error">
