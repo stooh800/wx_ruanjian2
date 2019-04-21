@@ -4,7 +4,6 @@ import org.fuck.wexin.CommonsConfig;
 import org.fuck.wexin.domain.InMessage;
 import org.fuck.wexin.domain.event.EventInMessage;
 import org.fuck.wexin.processors.EventMessageProcessor;
-import org.fuck.wexin.service.JsonRedisSerializer;
 import org.slf4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
