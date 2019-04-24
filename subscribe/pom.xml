@@ -50,12 +50,6 @@
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 		
-		<!-- 自动配置Spring MVC -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		
 		<!-- 开发者工具，用于实现热部署，在修改文件以后马上能够生效 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
