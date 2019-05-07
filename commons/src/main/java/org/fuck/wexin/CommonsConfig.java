@@ -14,11 +14,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 public interface CommonsConfig extends
-// 命令行运行器，表示此程序是一个命令行程序，需要重新run方法来实现程序的初始化。
-// 使用一个线程等待程序的停止通知。
+//命令行运行器，表示此程序是一个命令行程序，需要重新run方法来实现程序的初始化。
+//使用一个线程等待程序的停止通知。
 		CommandLineRunner, //
-// 此接口实现以后，Spring会在销毁的时候自动调用此接口的方法
-// 用于发送程序的停止通知
+//此接口实现以后，Spring会在销毁的时候自动调用此接口的方法
+//用于发送程序的停止通知
 		DisposableBean {
 
 	public static final Logger LOG = LoggerFactory.getLogger(CommonsConfig.class);
@@ -39,6 +39,15 @@ public interface CommonsConfig extends
 		// 使用序列化程序完成对象的序列化和反序列化，可以自定义
 		template.setValueSerializer(new JsonRedisSerializer());
 
+		return template;
+	}
+
+	@Bean
+	default <T> RedisTemplate<String, T> redisTemplate(//
+			@Autowired RedisConnectionFactory connectionFactory) {
+		RedisTemplate<String, T> template = new RedisTemplate<>();
+		template.setConnectionFactory(connectionFactory);
+		template.setValueSerializer(new JsonRedisSerializer());
 		return template;
 	}
 

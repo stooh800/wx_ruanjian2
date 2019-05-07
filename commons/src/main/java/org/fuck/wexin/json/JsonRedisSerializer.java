@@ -7,34 +7,39 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
-import org.fuck.wexin.domain.InMessage;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JsonRedisSerializer<T> extends Jackson2JsonRedisSerializer<T> {
+public class JsonRedisSerializer extends Jackson2JsonRedisSerializer<Object> {
 
 	private ObjectMapper objectMapper = new ObjectMapper();
 
-	@SuppressWarnings("unchecked")
 	public JsonRedisSerializer() {
-		super((Class<T>) InMessage.class);
+		super(Object.class);
 	}
 
 	@Override
-	public T deserialize(byte[] bytes) throws SerializationException {
+	public Object deserialize(byte[] bytes) throws SerializationException {
+		if (bytes == null) {
+			return null;
+		}
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
 		DataInputStream in = new DataInputStream(bis);
 		try {
 			// 读取类名
-			int len = in.readInt();
+			int len = in.readInt();// 读取一个整数，这个整数是后面类名的长度
 			byte[] classNameBytes = new byte[len];
 			in.readFully(classNameBytes);
 			String className = new String(classNameBytes, "UTF-8");
+
+			// Class.forName("com.mysql.jdbc.Driver")
 			@SuppressWarnings("unchecked")
-			Class<T> cla = (Class<T>) Class.forName(className);
-			T o = objectMapper.readValue(Arrays.copyOfRange(bytes, len + 4, bytes.length), cla);
+			Class<Object> cla = (Class<Object>) Class.forName(className);
+
+			// len + 4 : len是类名的长度，4则是最开始的int的长度，它们去掉
+			Object o = objectMapper.readValue(Arrays.copyOfRange(bytes, len + 4, bytes.length), cla);
 			return o;
 
 		} catch (IOException | ClassNotFoundException e) {
@@ -46,9 +51,11 @@ public class JsonRedisSerializer<T> extends Jackson2JsonRedisSerializer<T> {
 	public byte[] serialize(Object t) throws SerializationException {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		DataOutputStream out = new DataOutputStream(bos);
-		
+		// 在写数据的时候，在前面先写上一个数字，用于表示类名的长度
+		// 紧接着写出类名
 		try {
-			
+			// writeUTF本身就先把长度写出去，然后再写内容
+//			out.writeUTF(t.getClass().getName());
 			String className = t.getClass().getName();
 			byte[] classNameBytes = className.getBytes();
 

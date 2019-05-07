@@ -13,8 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-//把Bean加入容器管理，默认类名首字母小写作为ID
+// 把Bean加入容器管理，默认类名首字母小写作为ID
 //如果@Service注解有值则表示自定义ID
 @Service("subscribeMessageProcessor")
 public class SubscribeEventMessageProcessor implements EventMessageProcessor {

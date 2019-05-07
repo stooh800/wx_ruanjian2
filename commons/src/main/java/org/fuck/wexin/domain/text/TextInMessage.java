@@ -9,7 +9,6 @@ import org.fuck.wexin.domain.InMessage;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
 @XmlRootElement(name = "xml")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TextInMessage extends InMessage {
