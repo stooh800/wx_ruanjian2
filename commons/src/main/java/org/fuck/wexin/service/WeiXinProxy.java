@@ -72,29 +72,7 @@ public class WeiXinProxy {
 		} catch (JsonProcessingException e) {
 			LOG.error("发送消息出现问题：" + e.getLocalizedMessage(), e);
 		}
-//
-//		// 一般情况下是放入消息队列来发送的，但是这里为了简单起见，暂时不使用消息队列
-//		try {
-//			String json = this.objectMapper.writeValueAsString(out);
-//			LOG.trace("客服接口要发送的消息内容：{}", json);
-//
-//			String accessToken = accessTokenManager.getToken(account);
-//			String url = "https://api.weixin.qq.com/cgi-bin/message/custom/send"//
-//					+ "?access_token=" + accessToken;
-//
-//			// 创建请求
-//			HttpRequest request = HttpRequest.newBuilder(URI.create(url))//
-//					// 以POST方式发送请求
-//					.POST(BodyPublishers.ofString(json, Charset.forName("UTF-8")))//
-//					.build();
-//
-//			HttpResponse<String> response = httpClient//
-//					.send(request, BodyHandlers.ofString(Charset.forName("UTF-8")));
-//			LOG.trace("发送客服消息的结果：{}", response.body());
-//
-//		} catch (IOException | InterruptedException e) {
-//			LOG.error("发送消息出现问题：" + e.getLocalizedMessage(), e);
-//		}
+
 	}
 
 	public void createMenu(String json) {
