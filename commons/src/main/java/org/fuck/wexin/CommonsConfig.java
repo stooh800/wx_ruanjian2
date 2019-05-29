@@ -11,14 +11,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 public interface CommonsConfig extends
-//命令行运行器，表示此程序是一个命令行程序，需要重新run方法来实现程序的初始化。
-//使用一个线程等待程序的停止通知。
+// 命令行运行器，表示此程序是一个命令行程序，需要重新run方法来实现程序的初始化。
+// 使用一个线程等待程序的停止通知。
 		CommandLineRunner, //
-//此接口实现以后，Spring会在销毁的时候自动调用此接口的方法
-//用于发送程序的停止通知
+// 此接口实现以后，Spring会在销毁的时候自动调用此接口的方法
+// 用于发送程序的停止通知
 		DisposableBean {
 
 	public static final Logger LOG = LoggerFactory.getLogger(CommonsConfig.class);
@@ -27,6 +28,12 @@ public interface CommonsConfig extends
 	@Bean
 	public default XmlMapper xmlMapper() {
 		XmlMapper mapper = new XmlMapper();
+		return mapper;
+	}
+
+	@Bean
+	public default ObjectMapper objectMapper() {
+		ObjectMapper mapper = new ObjectMapper();
 		return mapper;
 	}
 

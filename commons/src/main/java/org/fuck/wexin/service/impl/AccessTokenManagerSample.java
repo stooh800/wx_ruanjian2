@@ -37,29 +37,48 @@ public class AccessTokenManagerSample implements AccessTokenManager {
 		String key = "wx_access_token";
 		ResponseToken token = redisTemplate.boundValueOps(key).get();
 		if (token == null) {
-			LOG.trace("数据库里面没有令牌，需要重新获取，正在获取分布式事务锁...");
-			// 加上分布式的事务锁
-			Boolean locked = redisTemplate.boundValueOps(key + "_lock")//
-					// 如果数据库里面本身已经有对应的KEY，那么不能再增加相同的KEY，会等待指定的时间
-					.setIfAbsent(new ResponseToken(), 1, TimeUnit.MINUTES);
-			LOG.trace("获取分布式事务锁结束，结果：{}", locked);
-			if (locked != null && locked == true) {
-				try {
-					token = redisTemplate.boundValueOps(key).get();
-					if (token == null) {
-						LOG.trace("调用远程接口获取令牌");
-						// 再次获取令牌，还是没有令牌，此时就要调用远程接口
-						token = getRemoteToken(account);
-						// 把获取到的令牌，存储到数据库
-						redisTemplate.boundValueOps(key).set(token, token.getExpiresIn(), TimeUnit.SECONDS);
+			for (int i = 0; i < 10; i++) {
+				LOG.trace("数据库里面没有令牌，需要重新获取，正在获取分布式事务锁...");
+				// 加上分布式的事务锁
+				Boolean locked = redisTemplate.boundValueOps(key + "_lock")//
+						// 如果数据库里面本身已经有对应的KEY，那么不能再增加相同的KEY，会等待指定的时间
+						.setIfAbsent(new ResponseToken(), 1, TimeUnit.MINUTES);
+				LOG.trace("获取分布式事务锁结束，结果：{}", locked);
+				if (locked != null && locked == true) {
+					try {
+						token = redisTemplate.boundValueOps(key).get();
+						if (token == null) {
+							LOG.trace("调用远程接口获取令牌");
+							// 再次获取令牌，还是没有令牌，此时就要调用远程接口
+							token = getRemoteToken(account);
+							// 把获取到的令牌，存储到数据库
+							redisTemplate.boundValueOps(key).set(token, token.getExpiresIn(), TimeUnit.SECONDS);
+						}
+					} finally {
+						// 删除分布式事务锁
+						redisTemplate.delete(key + "_lock");
+						synchronized (this) {
+							// 通知其他的线程继续执行，主要是wait方法要继续执行！
+							this.notifyAll();
+						}
 					}
-				} finally {
-					// 删除分布式事务锁
-					redisTemplate.delete(key + "_lock");
+					// 只要得到锁，即可跳出循环，不需要重试
+					break;
+				} else {
+					// throw new RuntimeException("没有获得事务锁，无法更新令牌");
+					synchronized (this) {
+						try {
+							// 等待一分钟以后，重新尝试获得锁
+							this.wait(60 * 1000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
 				}
-			} else {
-				throw new RuntimeException("没有获得事务锁，无法更新令牌");
 			}
+		}
+		if (token == null) {
+			throw new RuntimeException("无法获得访问令牌");
 		}
 		return token.getToken();
 	}
