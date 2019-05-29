@@ -4,7 +4,7 @@ spring:
 # serverTimezone=CST 表示指定服务器的时区，CST=China Standard Time
       url: jdbc:mysql://127.0.0.1:3306/ruanjian2?useSSL=false&serverTimezone=CST&allowPublicKeyRetrieval=true
       username: root
-      password: 1234
+      password: root
    jpa:
 #自动生产数据库的表，DDL表示数据定义语言，通常用来管理表结构的
       generate-ddl: true

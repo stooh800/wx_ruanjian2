@@ -87,8 +87,8 @@ public class AccessTokenManagerSample implements AccessTokenManager {
 
 		// 此时完全不管过期的问题，也不管开发者的身份问题，调用此方法，总是获取一个新的令牌。
 
-		String appid = "wx375cd9c53c364fc4";
-		String appSecret = "ad91eb3762d1336c39a417173bc47aba";
+		String appid = "wxed19c808a4c2bd77";
+		String appSecret = "5864c93cbfa3a956d85e680d2726ef0e";
 
 		String url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential"//
 				+ "&appid=" + appid//
