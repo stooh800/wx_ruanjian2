@@ -11,6 +11,7 @@
   	<module>subscribe</module>
   	<module>unsubscribe</module>
     <module>self_menu</module>
+    <module>library</module>
   </modules>
   <!-- 项目的属性配置 -->
 	<properties>
