@@ -1,0 +1,68 @@
+.book {
+	width: 100%;
+	display: table;
+	border-bottom: 1px dashed #aaa;
+}
+
+.book .col-1, .book .col-10 {
+	margin-left: 0px;
+	margin-right: 0px;
+	display: inline-block;
+	overflow: hidden;
+	float: left;
+}
+
+.book .col-1 {
+	width: 8%;
+}
+
+.book .col-10 {
+	width: 80%;
+}
+
+.book .image {
+	height: 50px;
+}
+
+.book .name:hover {
+	background-color: rgba(200, 200, 200, 0.5);
+}
+
+.book .button {
+	cursor: pointer;
+	padding: 0px 20px;
+	border: 1px solid #aaa;
+	background-color:#69F;
+	font-size:24px;
+	border-radius: 8px;
+}
+
+.book .button:hover {
+	background-color: #fff;
+}
+a{
+	text-decoration:none;
+}
+input{
+	border-radius:10px;
+	height:28px;
+	width:200px;
+	font-size:18px;
+}
+.search{
+	background-color:#6CF;
+	font-size:20px;
+	border-radius:5px;
+}
+body{
+	font-size:18px;
+}
+.fanghui{
+	width:28px;
+	height:30px;
+	background:url(fanghui.jpg);
+}
+.fenye{
+	float:right;
+	padding-right:20px;
+}
