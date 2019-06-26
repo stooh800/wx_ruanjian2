@@ -17,8 +17,6 @@ public class MessageConvertHelper {
 	static {
 		typeMap.put("text", TextInMessage.class);
 		typeMap.put("image", ImageInMessage.class);
-
-		// 其余的类型也是使用相同的方式关联起来
 		typeMap.put("vioce", TextInMessage.class);
 		typeMap.put("video", TextInMessage.class);
 		typeMap.put("location", TextInMessage.class);
@@ -37,7 +35,7 @@ public class MessageConvertHelper {
 		return c;
 	}
 
-	// 2.提供一个静态的方法，可以传入XML，把XML转换为Java对象
+	// 2.把XML转换为Java对象
 	public static <T extends InMessage> T convert(String xml) {
 		Class<? extends InMessage> c = getClass(xml);
 		if (c == null) {

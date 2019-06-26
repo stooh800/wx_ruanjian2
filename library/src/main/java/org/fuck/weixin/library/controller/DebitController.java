@@ -21,11 +21,10 @@ public class DebitController {
 
 	@RequestMapping
 	public String add(@RequestParam("id") String id, WebRequest request) {
-		// 获取Session里面名为debitList的对象，并且强制转换为DebitList
+		// 获取对象，并且强制转换为DebitList
 		DebitList debitList = (DebitList) request.getAttribute("debitList", WebRequest.SCOPE_SESSION);
 		if (debitList == null) {
 			debitList = new DebitList();
-			// 把新创建的DebitList放入Session里面
 			request.setAttribute("debitList", debitList, WebRequest.SCOPE_SESSION);
 		}
 

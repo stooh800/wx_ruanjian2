@@ -40,8 +40,7 @@ public class AccessTokenManagerSample implements AccessTokenManager {
 			for (int i = 0; i < 10; i++) {
 				LOG.trace("数据库里面没有令牌，需要重新获取，正在获取分布式事务锁...");
 				// 加上分布式的事务锁
-				Boolean locked = redisTemplate.boundValueOps(key + "_lock")//
-						// 如果数据库里面本身已经有对应的KEY，那么不能再增加相同的KEY，会等待指定的时间
+				Boolean locked = redisTemplate.boundValueOps(key + "_lock")
 						.setIfAbsent(new ResponseToken(), 1, TimeUnit.MINUTES);
 				LOG.trace("获取分布式事务锁结束，结果：{}", locked);
 				if (locked != null && locked == true) {
@@ -62,13 +61,10 @@ public class AccessTokenManagerSample implements AccessTokenManager {
 							this.notifyAll();
 						}
 					}
-					// 只要得到锁，即可跳出循环，不需要重试
 					break;
 				} else {
-					// throw new RuntimeException("没有获得事务锁，无法更新令牌");
 					synchronized (this) {
 						try {
-							// 等待一分钟以后，重新尝试获得锁
 							this.wait(60 * 1000);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
@@ -85,7 +81,7 @@ public class AccessTokenManagerSample implements AccessTokenManager {
 
 	private ResponseToken getRemoteToken(String account) {
 
-		// 此时完全不管过期的问题，也不管开发者的身份问题，调用此方法，总是获取一个新的令牌。
+		// 获取一个新的令牌
 
 		String appid = "wxed19c808a4c2bd77";
 		String appSecret = "5864c93cbfa3a956d85e680d2726ef0e";
@@ -94,18 +90,11 @@ public class AccessTokenManagerSample implements AccessTokenManager {
 				+ "&appid=" + appid//
 				+ "&secret=" + appSecret;
 
-		// 创建HTTP客户端，可以重复使用，但是此时不考虑重复使用
 		HttpClient hc = HttpClient.newBuilder().build();
-		// 创建请求
 		HttpRequest request = HttpRequest.newBuilder(URI.create(url))//
-				.GET()// 以GET方式发送请求
-				.build();
+				.GET().build();
 		ResponseMessage msg;
 		try {
-			// 发送请求
-			// BodyHandlers里面包含了一系列的响应体处理程序，能够把响应体转换为需要的数据类型
-			// ofString表示转换为String类型的数据
-			// Charset.forName("UTF-8")表示使用UTF-8的编码转换数据
 			HttpResponse<String> response = hc.send(request, BodyHandlers.ofString(Charset.forName("UTF-8")));
 
 			// 获取响应体

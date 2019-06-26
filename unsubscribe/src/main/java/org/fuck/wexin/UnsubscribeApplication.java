@@ -55,14 +55,14 @@ public class UnsubscribeApplication implements //
 			@Autowired //
 			@Qualifier("inMessageTemplate") //
 			RedisTemplate<String, ? extends InMessage> inMessageTemplate) {
-		// 适配器是把任意对象、任意方法代理成能够处理消息的方法
+		
 		MessageListenerAdapter adapter = new MessageListenerAdapter(this, "handle");
 		// 使用跟模板相同的序列化程序。
 		adapter.setSerializer(inMessageTemplate.getValueSerializer());
 		return adapter;
 	};
 
-	// 此方法就可以正常处理信息！
+	
 	public void handle(EventInMessage msg) {
 		LOG.trace("处理信息： {}", msg);
 		// 1.获取事件的类型，并且在后面加上MessageProcessor组成Bean的id
@@ -92,7 +92,6 @@ public class UnsubscribeApplication implements //
 		// 监听指定通道的消息
 		Topic topic = new ChannelTopic("kemao_2_event");
 		// 监听所有kemao_2_开头的通道里面的消息
-//		Topic topic = new PatternTopic("kemao_2_*");
 		// 添加消息的监听器
 		c.addMessageListener(messageListener, topic);
 

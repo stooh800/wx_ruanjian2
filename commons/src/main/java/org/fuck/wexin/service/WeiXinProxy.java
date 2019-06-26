@@ -36,15 +36,10 @@ public class WeiXinProxy {
 				+ "?access_token=" + accessToken//
 				+ "&openid=" + openId//
 				+ "&lang=zh_CN";
-		// 创建请求
+
 		HttpRequest request = HttpRequest.newBuilder(URI.create(url))//
-				.GET()// 以GET方式发送请求
-				.build();
+				.GET().build();
 		try {
-			// 发送请求
-			// BodyHandlers里面包含了一系列的响应体处理程序，能够把响应体转换为需要的数据类型
-			// ofString表示转换为String类型的数据
-			// Charset.forName("UTF-8")表示使用UTF-8的编码转换数据
 			HttpResponse<String> response = httpClient.send(request, BodyHandlers.ofString(Charset.forName("UTF-8")));
 
 			// 获取响应体
@@ -84,20 +79,12 @@ public class WeiXinProxy {
 
 		LOG.trace("以POST方式发送信息给微信公众号，内容：\n{}", json);
 
-		// 如果没有加上访问令牌，无法访问微信的公众号服务器！
+		// 如果没有加上访问令牌，无法访问微信的公众号服务器
 		String accessToken = accessTokenManager.getToken(null);
 		url = url + accessToken;
-
-		// 创建请求
 		HttpRequest request = HttpRequest.newBuilder(URI.create(url))//
 				// 以POST方式发送请求
-				.POST(BodyPublishers.ofString(json, Charset.forName("UTF-8")))//
-				.build();
-
-//					HttpResponse<String> response = httpClient//
-//							.send(request, BodyHandlers.ofString(Charset.forName("UTF-8")));
-
-		// 异步发送
+				.POST(BodyPublishers.ofString(json, Charset.forName("UTF-8"))).build();
 		CompletableFuture<HttpResponse<String>> future = httpClient.sendAsync(request,
 				BodyHandlers.ofString(Charset.forName("UTF-8")));
 

@@ -34,11 +34,9 @@ public class JsonRedisSerializer extends Jackson2JsonRedisSerializer<Object> {
 			in.readFully(classNameBytes);
 			String className = new String(classNameBytes, "UTF-8");
 
-			// Class.forName("com.mysql.jdbc.Driver")
 			@SuppressWarnings("unchecked")
 			Class<Object> cla = (Class<Object>) Class.forName(className);
 
-			// len + 4 : len是类名的长度，4则是最开始的int的长度，它们去掉
 			Object o = objectMapper.readValue(Arrays.copyOfRange(bytes, len + 4, bytes.length), cla);
 			return o;
 
@@ -54,8 +52,7 @@ public class JsonRedisSerializer extends Jackson2JsonRedisSerializer<Object> {
 		// 在写数据的时候，在前面先写上一个数字，用于表示类名的长度
 		// 紧接着写出类名
 		try {
-			// writeUTF本身就先把长度写出去，然后再写内容
-//			out.writeUTF(t.getClass().getName());
+			
 			String className = t.getClass().getName();
 			byte[] classNameBytes = className.getBytes();
 

@@ -21,28 +21,22 @@ public class MenuButton {
 
 	@Id
 	@Column(length = 36)
-	// 使用UUID2算法生成主键的值，分布式系统里面不能使用自增长作为主键值
 	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid2")
 	private String id;
-
-	// 这个属性用于生成sub_button属性，也是一个集合！
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "parent_id") // 上级菜单的ID
 	private List<MenuButton> subMenus = new LinkedList<>();
 
 	/** 菜单的响应动作类型，view表示网页类型，click表示点击类型，miniprogram表示小程序类型 */
 	private String type;
-	/** 菜单标题，不超过16个字节，子菜单不超过60个字节 */
+	
 	private String name;
-	/** 菜单KEY值，用于消息接口推送，不超过128字节 */
 	// key是数据库关键字，所以数据库不能以key作为列名！
 	// 使用反单引号可以把关键字作为列名来使用！
 	@Column(name = "`key`")
 	private String key;
-	/** 网页 链接，用户点击菜单可打开链接，不超过1024字节。 type为miniprogram时，不支持小程序的老版本客户端将打开本url。 */
 	private String url;
-	/** 调用新增永久素材接口返回的合法media_id */
 	private String mediaId;
 	/** 小程序的appid（仅认证公众号可配置） */
 	private String appId;

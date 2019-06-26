@@ -13,9 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EventInMessage extends InMessage {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@XmlElement(name = "Event")
 	@JsonProperty("Event")

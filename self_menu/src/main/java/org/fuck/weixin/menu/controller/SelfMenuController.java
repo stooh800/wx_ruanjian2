@@ -24,8 +24,8 @@ public class SelfMenuController {
 	}
 
 	@GetMapping(produces = "application/json") // 表明对外提供JSON数据
-	@ResponseBody // 返回的对象，就是响应体
-	// 此时方法的返回值可以是任意类型的数据，Spring会自动转换为JSON！
+	@ResponseBody 
+	// 此时方法的返回值可以是任意类型的数据，Spring会自动转换为JSON
 	public SelfMenu data() {
 		return menuService.getMenu();
 	}

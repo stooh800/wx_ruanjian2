@@ -79,7 +79,7 @@ public class SelfMenuServiceImpl implements SelfMenuService {
 			} else {
 				// 有下一级，只需要那么，然后增加一个sub_button数组
 				ArrayNode subButtons = mapper.createArrayNode();
-				// sub_button: []
+		
 				menu1.set("sub_button", subButtons);
 				b1.getSubMenus().forEach(b2 -> {
 					ObjectNode menu2 = mapper.createObjectNode();

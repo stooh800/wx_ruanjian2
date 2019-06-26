@@ -28,11 +28,9 @@ public class LibraryServiceImpl implements LibraryService {
 		Page<Book> page;
 		if (StringUtils.isEmpty(keyword)) {
 			// 没有查询的关键字
-			// where disabled == false
 			page = this.bookRepository.findByDisabledFalse(pageable);
 		} else {
 			// 有关键字，要根据关键字来查询数据
-			// where name like '%' + keyword + '%' and disabled == false
 			page = this.bookRepository.findByNameContainingAndDisabledFalse(keyword, pageable);
 		}
 

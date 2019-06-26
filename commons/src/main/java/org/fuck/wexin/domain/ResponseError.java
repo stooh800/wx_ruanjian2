@@ -1,10 +1,8 @@
 package org.fuck.wexin.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 //返回响应的是错误信息
 public class ResponseError extends ResponseMessage {
-
 	@JsonProperty("errcode")
 	private int errorCode;
 	@JsonProperty("errmsg")
