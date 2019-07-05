@@ -17,5 +17,5 @@ spring:
 # 指定服务器在运行的时候，Tomcat使用的端口
 # Spring Boot自带了一个阉割版Tomcat，默认不支持JSP，只是支持Servlet宿舍
 server:
-   port: 8080
+   port: 8088
 
