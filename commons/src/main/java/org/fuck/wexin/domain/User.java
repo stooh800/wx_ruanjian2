@@ -17,14 +17,18 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity 
-@Table(name = "wx_user") 
+@Entity // 表示一个JPA的实体
+@Table(name = "wx_user") // 指定表名
 public class User {
 
 	public static enum Status {
-
+		/**
+		 * 关注状态
+		 */
 		IS_SUBSCRIBE,
-		
+		/**
+		 * 取消关注状态
+		 */
 		IS_UNSUBSCRIBE;
 	}
 
@@ -80,7 +84,12 @@ public class User {
 	@JsonProperty("tagid_list")
 	@Transient // 暂时不要保存到数据库
 	private String[] tagIdList;
-
+	/**
+	 * 返回用户关注的渠道来源，ADD_SCENE_SEARCH 公众号搜索，ADD_SCENE_ACCOUNT_MIGRATION
+	 * 公众号迁移，ADD_SCENE_PROFILE_CARD 名片分享，ADD_SCENE_QR_CODE
+	 * 扫描二维码，ADD_SCENEPROFILE LINK 图文页内名称点击，ADD_SCENE_PROFILE_ITEM
+	 * 图文页右上角菜单，ADD_SCENE_PAID 支付后关注，ADD_SCENE_OTHERS 其他
+	 */
 	@JsonProperty("subscribe_scene")
 	private String subscribeScene;
 	/** 二维码扫码场景（开发者自定义） */

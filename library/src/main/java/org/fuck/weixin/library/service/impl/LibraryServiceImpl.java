@@ -4,8 +4,10 @@ import java.util.LinkedList;
 import java.util.function.Predicate;
 
 import org.fuck.weixin.library.domain.Book;
+import org.fuck.weixin.library.domain.Borrow;
 import org.fuck.weixin.library.domain.DebitList;
 import org.fuck.weixin.library.repository.BookRepository;
+import org.fuck.weixin.library.repository.BorrowRepository;
 import org.fuck.weixin.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,7 +21,7 @@ public class LibraryServiceImpl implements LibraryService {
 
 	@Autowired
 	private BookRepository bookRepository;
-
+	
 	@Override
 	public Page<Book> search(String keyword, int pageNumber) {
 
@@ -63,4 +65,6 @@ public class LibraryServiceImpl implements LibraryService {
 		 debitList.getBooks().stream().filter(book -> book.getId().equals(id)).findFirst().ifPresent(debitList.getBooks()::remove);;
 		
 	}
+
+	
 }

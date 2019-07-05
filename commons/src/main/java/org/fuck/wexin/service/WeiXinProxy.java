@@ -37,8 +37,7 @@ public class WeiXinProxy {
 				+ "&openid=" + openId//
 				+ "&lang=zh_CN";
 
-		HttpRequest request = HttpRequest.newBuilder(URI.create(url))//
-				.GET().build();
+		HttpRequest request = HttpRequest.newBuilder(URI.create(url)).GET().build();
 		try {
 			HttpResponse<String> response = httpClient.send(request, BodyHandlers.ofString(Charset.forName("UTF-8")));
 

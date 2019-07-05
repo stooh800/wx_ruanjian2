@@ -1,10 +1,10 @@
-package org.fuck;
+package org.fuck.wexin;
 
-import org.fuck.wexin.CommonsConfig;
 import org.fuck.wexin.domain.InMessage;
 import org.fuck.wexin.domain.event.EventInMessage;
 import org.fuck.wexin.processors.EventMessageProcessor;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -21,21 +21,14 @@ import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
-import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.Topic;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
-import org.slf4j.LoggerFactory;
-
 
 @SpringBootApplication
 @ComponentScan("org.fuck")
-public class SubscribeApplication implements //
-		// 命令行运行器，表示此程序是一个命令行程序，需要重新run方法来实现程序的初始化。
-		// 使用一个线程等待程序的停止通知。
+public class SubscribeApplication implements 
 		CommandLineRunner, //
-		// 此接口实现以后，Spring会在销毁的时候自动调用此接口的方法
-		// 用于发送程序的停止通知
 		DisposableBean, //
 		ApplicationContextAware, //
 		CommonsConfig {
