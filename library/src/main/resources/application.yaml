@@ -3,7 +3,7 @@ spring:
    datasource:
       url: jdbc:mysql://127.0.0.1:3306/ruanjian2?useSSL=false&serverTimezone=CST&allowPublicKeyRetrieval=true
       username: root
-      password: root
+      password: 1234
    jpa:
       # 自动生成数据库的表
       generate-ddl: true
