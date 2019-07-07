@@ -1,7 +1,6 @@
 package org.fuck.weixin.library.controller;
 
 import org.fuck.weixin.library.domain.DebitList;
-import org.fuck.weixin.library.service.BorrowService;
 import org.fuck.weixin.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,12 +14,11 @@ import org.springframework.web.context.request.WebRequest;
 @Controller
 @RequestMapping("/kemao_2/library/debit")
 // @SessionAttributes表示哪些属性是放入Session里面的
-@SessionAttributes({ "debitList" })
+@SessionAttributes({ "debitList","borrowList" })
 public class DebitController {
 
 	@Autowired
 	private LibraryService libraryService;
-
 	@RequestMapping
 	public String add(@RequestParam("id") String id, WebRequest request) {
 		// 获取Session里面名为debitList的对象，并且强制转换为DebitList
@@ -49,4 +47,5 @@ public class DebitController {
 		this.libraryService.remove(id, debitList);
 		return "redirect:/kemao_2/library/debit/list";
 	}
+
 }

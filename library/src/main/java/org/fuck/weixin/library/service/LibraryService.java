@@ -12,5 +12,7 @@ public interface LibraryService {
 
 	void remove(String id, DebitList debitList);
 	
+	void save(String id, DebitList debitList);
+	
 
 }

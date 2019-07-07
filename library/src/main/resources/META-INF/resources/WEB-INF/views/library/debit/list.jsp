@@ -28,7 +28,7 @@ cursor: pointer;
 			${book.name }
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="/kemao_2/library/debit/remove/${book.id }" class="remove">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="/kemao_2/library/debit/borrow/${book.id }" class="save">确定借阅</a>
+			<a href="/kemao_2/library/borrowdebit?id=${book.id}" class="save">确定借阅</a>
 			
 		</div>
 	</c:forEach>

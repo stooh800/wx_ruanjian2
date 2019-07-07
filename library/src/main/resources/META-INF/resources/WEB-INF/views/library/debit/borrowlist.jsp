@@ -6,16 +6,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>确定借阅</title>
+<title>借阅历史</title>
 <link href="/kemao_2/library/css/main.css" rel="stylesheet"/>
 </head>
 <body>
-	<c:forEach items="${borrowList.borrow }" var="borrow">
-		<div class="item">
-			${borrow.name }
-			
-			
-		</div>
-	</c:forEach>
+	<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>编号</th>
+								<th>书名</th>
+								<th>图片</th>
+								<th>借书时间</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${borrowList}" var="borrow">
+								<tr>
+									<td>${borrow.id}</td>
+								    <td>${borrow.name}</td>	
+								    <td><img src="/kemao_2/library/images/${borrow.image}"></td>
+								    <td>${borrow.borrowtime}</td> 
+								</tr>
+							</c:forEach>
+							</tbody>
 </body>
 </html>

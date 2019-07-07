@@ -21,6 +21,8 @@ public class LibraryServiceImpl implements LibraryService {
 
 	@Autowired
 	private BookRepository bookRepository;
+	@Autowired
+	private BorrowRepository borrowRepository;
 	
 	@Override
 	public Page<Book> search(String keyword, int pageNumber) {
@@ -66,5 +68,25 @@ public class LibraryServiceImpl implements LibraryService {
 		
 	}
 
-	
+	@Override
+	public void save(String id, DebitList debitList) {
+		 if(debitList.getBorrow()==null) {
+       	  debitList.setBorrow(new LinkedList<>());
+         }
+		boolean exists=false;          
+           for(Borrow b:debitList.getBorrow()) {
+           	if(b.getId().equals(id)){
+           	exists=true;
+           	break;
+           }
+		
+	}
+	if(!exists) {
+		this.borrowRepository.findById(id).ifPresent(book ->{
+			debitList.getBorrow().add(book);
+		});
+		
+	}
+
 }
+	}

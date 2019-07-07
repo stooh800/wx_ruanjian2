@@ -1,9 +1,10 @@
 package org.fuck.weixin.library.domain;
 
-import java.sql.Time;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,18 +14,17 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "lib_borrow")
 public class Borrow {
 	@Id
-	@GenericGenerator(name = "uuid2", strategy = "uuid2")
-	@GeneratedValue(generator = "uuid2")
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
 	private String name;
-	private Time borrowtime;
+	private String borrowtime;
 	private String image;
 	private boolean disabled;
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -33,11 +33,11 @@ public class Borrow {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Time getBorrowtime() {
+	public String getBorrowtime() {
 		return borrowtime;
 	}
-	public void setBorrowtime(Time borrowtime) {
-		this.borrowtime = borrowtime;
+	public void setBorrowtime(String b_date) {
+		this.borrowtime = b_date;
 	}
 	public String getImage() {
 		return image;
